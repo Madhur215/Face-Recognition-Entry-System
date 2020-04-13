@@ -4,7 +4,6 @@ from PIL import Image
 import numpy as np
 
 
-
 class train_images:
 
 	def __init__(self):
@@ -23,8 +22,10 @@ class train_images:
 				gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 				cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 				face = cascade.detectMultiScale(gray_image, 1.1, 5)
-				# print(img)
-				# print(face)
+
+				if len(face)!=1:
+					continue
+
 				x, y, w, h = face[0]
 				gray = gray_image[y:y+h, x:x+h]
 				equalize = cv2.equalizeHist(gray)
@@ -32,6 +33,7 @@ class train_images:
 				self.imageId.append(int(img_id))
 				self.images.append(eq_image)
 
+		cv2.destroyAllWindows()
 		return self.images, self.imageId
 
 

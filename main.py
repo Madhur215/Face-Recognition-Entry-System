@@ -4,7 +4,7 @@ from PIL import Image
 import os
 import cv2
 from train import train_images as tr
-
+from DetectImage import detect_image as detect
 
 def train_recognizer():
 	recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -16,5 +16,7 @@ def train_recognizer():
 
 train_recognizer()
 
+d = detect()
+d.identify()
 
 
