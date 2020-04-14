@@ -33,7 +33,7 @@ class train_images:
 				self.imageId.append(int(img_id))
 				self.images.append(eq_image)
 
-		cv2.destroyAllWindows()
+		# cv2.destroyAllWindows()
 		return self.images, self.imageId
 
 

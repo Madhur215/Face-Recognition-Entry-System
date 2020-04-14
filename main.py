@@ -17,6 +17,6 @@ def train_recognizer():
 train_recognizer()
 
 d = detect()
-d.identify()
+d.identify('Record.xlsx', 'attendence.xlsx')
 
 
