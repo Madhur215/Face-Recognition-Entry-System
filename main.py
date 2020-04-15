@@ -13,8 +13,8 @@ def train_recognizer():
 	image_id = np.array(image_id)
 	recognizer.train(images, image_id)
 	recognizer.save('trained.yml')
-
-train_recognizer()
+if not os.path.isfile('trained.yml'):
+	train_recognizer()
 
 d = detect()
 d.identify('Record.xlsx', 'attendence.xlsx')

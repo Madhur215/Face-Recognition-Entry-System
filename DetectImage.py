@@ -4,7 +4,7 @@ import os
 import cv2
 import openpyxl
 from openpyxl import load_workbook
-
+from datetime import datetime
 
 names = { 0: 'niharika', 1 : 'madhur', 2: 'v', 3: 'l'}
 
@@ -31,12 +31,12 @@ class detect_image:
 				label, conf = self.recognizer.predict(gray_frame[y:y+h, x:x+w])
 				# print(names.get(label))
 				p_name = names.get(label)
-				self.markEntry(p_name, recordSheet, attendenceSheet)
 
 				cv2.imshow("Recognizing Face", frame)
 				flag = cv2.waitKey(1) & 0xFF
 				f += 1
 				if f > 20:
+					self.markEntry(p_name, recordSheet, attendenceSheet)
 					cap.release()
 					break	
 
@@ -48,9 +48,37 @@ class detect_image:
 			self.students_marked.append(p_name)
 			recordWorkbook = load_workbook(filename=recordSheet)
 			sheet = recordWorkbook.active
-			recordNames = sheet["A"]
-			print(recordNames)
+			for values in sheet.iter_rows(min_row = 1,
+										min_col = 1,
+										max_col = 3,
+										values_only = True):
+				rec_name = values[0]
+				if rec_name.lower() == p_name:
+					branch = values[1]
+					year = values[2]
+					self.writeEntry(p_name, branch, year, attendenceSheet)
 
+	def print_rows(self, sheet):
+		for row in sheet.iter_rows(values_only=True):
+			print(row)
+
+	def writeEntry(self, p_name, branch, year, attendenceSheet):
+		# num_students = len(self.students_marked)
+		# print(self.students_marked)
+		# print(branch, year)
+		attendenceWorkbook = load_workbook(filename=attendenceSheet)
+		sheet = attendenceWorkbook.active
+		sheet.insert_rows(idx=2, amount=1)
+		sheet["A2"] = p_name
+		sheet["B2"] = year
+		sheet["C2"] = branch
+		time = datetime.now()
+		curr_time = time.strftime("%H:%M:%S")
+		# print(curr_time)
+		sheet["D2"] = curr_time
+		
+		self.print_rows(sheet)
+		attendenceWorkbook.save(attendenceSheet)
 
 
 
