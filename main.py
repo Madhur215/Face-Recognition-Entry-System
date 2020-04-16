@@ -26,11 +26,13 @@ def train_recognizer():
 
 def mark_entry():
 	p_name = d.identify()
+	cv2.destroyAllWindows()
 	print(p_name)
 	d.markEntry(p_name)
 
 def close_entry():
 	p_name = d.identify()
+	cv2.destroyAllWindows()
 	print(p_name)
 	d.close_entry(p_name)
 

@@ -40,14 +40,9 @@ class detect_image:
 				flag = cv2.waitKey(1) & 0xFF
 				f += 1
 				if f > 20:
-					# if n == 0:
-					# 	self.markEntry(p_name)
-					# else:
-					# 	self.close_entry(p_name)
 					cap.release()
 					return p_name
-					# break	
-		# return pred_name
+
 
 	def writeEntry(self, p_name, branch, year):
 		# num_students = len(self.students_marked)
