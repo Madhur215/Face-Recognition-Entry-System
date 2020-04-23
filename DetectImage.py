@@ -6,7 +6,7 @@ import openpyxl
 from openpyxl import load_workbook
 from datetime import datetime
 
-names = { 0: 'niharika', 1 : 'madhur', 2: 'v', 3: 'l'}
+names = { 0: 'n', 1 : 'm', 2: 'v', 3: 'l'}
 
 class detect_image:
 
@@ -39,7 +39,7 @@ class detect_image:
 				cv2.imshow("Recognizing Face", frame)
 				flag = cv2.waitKey(1) & 0xFF
 				f += 1
-				if f > 20:
+				if f > 15:
 					cap.release()
 					return p_name
 
@@ -91,7 +91,7 @@ class detect_image:
 					sheet["E" + str(index)] = curr_time
 					print("Entry closed!") 
 					self.attendenceWorkbook.save(self.attendenceSheet)
-					self.students_marked(p_name)					
+					self.students_marked.remove(p_name)					
 					break
 
 

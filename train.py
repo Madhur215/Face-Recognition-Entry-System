@@ -18,7 +18,6 @@ class train_images:
 				img_id = os.path.basename(root)
 				img = os.path.join(root, fname)
 				image = cv2.imread(img)
-
 				gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 				cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 				face = cascade.detectMultiScale(gray_image, 1.1, 5)
